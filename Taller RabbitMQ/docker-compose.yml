@@ -1,0 +1,30 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3.13.7-management
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+  
+  consumer_java:
+    build: ./consumer_java
+    depends_on:
+      - rabbitmq
+    restart: always
+  
+  consumer_node:
+    build: ./consumer_node
+    depends_on:
+      - rabbitmq
+    restart: always
+  
+  publisher_java:
+    build: ./publisher_java
+    depends_on:
+      - rabbitmq
+    restart: always
+  
+  publisher_node:
+    build: ./publisher_node
+    depends_on:
+      - rabbitmq
+    restart: always
